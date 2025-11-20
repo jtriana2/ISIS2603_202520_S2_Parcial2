@@ -1,12 +1,5 @@
-img.movie-img {
-  max-width: 250px;
-}
-
-tr:hover {
-  background-color: aliceblue;
-  cursor: pointer;
-}
-
-thead {
-  background-color: mediumturquoise;
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
 }

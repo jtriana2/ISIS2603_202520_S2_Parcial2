@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Actor } from '../Actor';
 
 @Component({
@@ -7,9 +7,14 @@ import { Actor } from '../Actor';
   templateUrl: './actor-list.component.html',
   styleUrl: './actor-list.component.css',
 })
-export class ActorListComponent implements OnInit {
+export class ActorListComponent {
   @Input() actors: Actor[] = [];
+  @Input() actorWithMostMovies: Actor | null = null;
+  
   constructor() {}
 
-  ngOnInit(): void {}
+  isActorWithMostMovies(actor: Actor): boolean {
+    return this.actorWithMostMovies !== null && 
+           this.actorWithMostMovies.nombre === actor.nombre;
+  }
 }

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -11,10 +13,22 @@ export class MovieDetailComponent implements OnInit, OnChanges {
   @Input() movie: any;
   safeTrailerUrl: SafeResourceUrl | null = null;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(
+    private readonly sanitizer: DomSanitizer,
+    private readonly route: ActivatedRoute,
+    private readonly movieService: MovieService
+  ) { }
 
   ngOnInit(): void {
-    this.updateTrailerUrl();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.movieService.getMovieDetail(+id).subscribe(data => {
+        this.movie = data;
+        this.updateTrailerUrl();
+      });
+    } else {
+      this.updateTrailerUrl();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -34,5 +48,12 @@ export class MovieDetailComponent implements OnInit, OnChanges {
     } else {
       this.safeTrailerUrl = null;
     }
+  }
+
+  getActorWithMostMovies(): any {
+    if (!this.movie?.actores) return null;
+    return this.movie.actores.reduce((prev: any, current: any) => 
+      (prev.peliculas_count > current.peliculas_count) ? prev : current
+    );
   }
 }

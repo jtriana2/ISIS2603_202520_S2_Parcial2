@@ -1,4 +1,4 @@
 # Parcial Práctico 2
 
-- Nombre:
-- código:
+- Nombre: Baruc Jeronimo Triana Bastidas
+- código: 202416093

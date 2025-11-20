@@ -1,8 +1,7 @@
 <ul>
   @for (actor of actors; track actor.nombre){
-
   <li>
-    <span>{{ actor.nombre }}</span>
+    <span [ngClass]="{'fw-bold': isActorWithMostMovies(actor)}">{{ actor.nombre }}</span>
     <span> - {{ actor.personaje }}</span>
   </li>
   }
